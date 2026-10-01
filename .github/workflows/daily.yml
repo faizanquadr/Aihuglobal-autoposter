@@ -1,0 +1,20 @@
+name: AIHubGlobal Daily Poster
+
+on:
+  schedule:
+    - cron: '30 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Run Auto Poster
+        env:
+          AYRSHARE_API_KEY: ${{ secrets.AYRSHARE_API_KEY }}
+        run: python Alhuglobal_poster.py --platforms instagram facebook linkedin threads --publish
